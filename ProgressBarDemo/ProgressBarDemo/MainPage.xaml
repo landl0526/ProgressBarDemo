@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ProgressBarDemo"
+             x:Class="ProgressBarDemo.MainPage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:CountDownConverter x:Key="countDownTime"/>
+        </ResourceDictionary>
+        
+    </ContentPage.Resources>
+    <StackLayout>
+        <Label
+            BindingContext="{x:Reference progressBar}"
+            Text = "{Binding Progress, StringFormat='{0:P0}'}"
+            HorizontalOptions ="Center"
+            FontSize="20"
+            FontFamily = "Helvetica Neue"
+            TextColor ="Red" />
+        <ProgressBar x:Name="progressBar"
+            IsVisible="true"
+            Progress="0.0"
+            WidthRequest="300"
+            HorizontalOptions="Center">
+        </ProgressBar>
+        <local:MyLabel x:Name="MyLabel" 
+                    TotalTime="{Binding TotalTime}"
+                    Text="{Binding Source={x:Reference progressBar}, Path=Progress, Converter={StaticResource countDownTime}, ConverterParameter={x:Reference MyLabel}"
+                    HorizontalOptions ="Center"
+                    FontSize="20"
+                    FontFamily = "Helvetica Neue"
+                    TextColor = "Red" />
+    </StackLayout>
+
+</ContentPage>
